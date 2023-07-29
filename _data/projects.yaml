@@ -1,0 +1,146 @@
+components:
+- name: flux-core
+  flux_framework: true
+  github: flux-framework/flux-core
+  avatar: https://avatars.githubusercontent.com/u/7545483?v=4
+  url: https://github.com/flux-framework/flux-core"
+  homepage: https://flux-framework.readthedocs.io
+  summary: "core services for the Flux resource management framework"
+  license: LGPL-3.0
+  createdAt: "2014-09-26T22:27:19Z"
+  description: |
+    Flux core includes all the main components for Flux Framework.
+- name: flux-sched
+  flux_framework: true
+  github: flux-framework/flux-sched
+  avatar: https://avatars.githubusercontent.com/u/7545483?v=4
+  url: https://github.com/flux-framework/flux-sched
+  homepage: https://flux-framework.readthedocs.io
+  summary: "Fluxion Graph-based Scheduler"
+  license: LGPL-3.0
+  createdAt: "2014-10-23T23:09:17Z"
+  description: |
+    The Fluxion scheduler
+- name: flux-accounting
+  flux_framework: true
+  github: flux-framework/flux-accouting
+  avatar: https://avatars.githubusercontent.com/u/7545483?v=4
+  url: https://github.com/flux-framework/flux-accounting
+  homepage: https://flux-framework.readthedocs.io/en/latest/guides/accounting-guide.html
+  summary: "bank/accounting interface for the Flux resource manager"
+  license: LGPL-3.0
+  createdAt: "2020-03-06T16:58:23Z"
+  description: |
+    By default, a Flux system instance treats users equally and schedules work based on demand,
+    without consideration of a user’s history of resource consumption, or what share of available
+    resources their organization considers they should be entitled to use relative to other competing users.
+    Flux-accounting adds a database which stores site policy, banks with with user/project associations, 
+    and metrics representing historical usage. It also adds a Flux jobtap plugin that sets the priority 
+    on each job that enters the system based on multiple factors including fair share values. 
+    The priority determines the order in which jobs are considered by the scheduler for resource 
+    allocation. In addition, the jobtap plugin holds or rejects job requests that exceed 
+    user/project specific limits or have exhausted their bank allocations.
+
+    The database is populated and queried with command line tools prefixed
+    with flux account. Accounting scripts are run regularly by flux-cron(1) to pull 
+    historical job information from the Flux job-archive database to the accounting database, 
+    and to push bank and limit data to the jobtap plugin.
+
+    At this time, the database is expected to be installed on a cluster management node, 
+    co-located with the rank 0 Flux broker, managing accounts for that cluster only. 
+    Sites would typically populate the database and keep it up to date automatically
+    using information regularly pulled or pushed from an external source like an identity management system.
+
+- name: flux-pmix
+  github: flux-framework/flux-pmix
+  flux_framework: true
+  avatar: https://avatars.githubusercontent.com/u/7545483?v=4
+  url: https://github.com/flux-framework/flux-pmix
+  homepage: 
+  summary: "flux shell plugin to bootstrap openmpi v5+"
+  license: LGPL-3.0
+  createdAt: "2021-09-15T14:55:22Z"
+  description: |
+    Flux PMIX description
+
+- name: flux-security
+  flux_framework: true
+  github: flux-framework/flux-security
+  avatar: https://avatars.githubusercontent.com/u/7545483?v=4
+  url: https://github.com/flux-framework/flux-security
+  homepage: 
+  summary: "Independent project for Flux security code and APIs."
+  license: LGPL-3.0
+  createdAt: "2017-10-02T16:38:49Z"
+  description: |
+    Flux PMIX description
+
+- name: flux-operator
+  flux_framework: false
+  github: flux-framework/flux-operator
+  avatar: https://avatars.githubusercontent.com/u/7545483?v=4
+  url: https://github.com/flux-framework/flux-operator
+  homepage: https://flux-framework.org/flux-operator
+  summary: "Deploy a Flux MiniCluster to Kubernetes with the operator"
+  license: MIT
+  createdAt: "2022-08-25T01:22:55Z"
+  description: |
+    The Flux Operator will allow you to define a spec for a persistent or one-off
+    "MiniCluster" - an entire setup of Flux Framework running in a set of networked
+    pods in Kubernetes.
+
+- name: flux-operator
+  flux_framework: false
+  github: flux-framework/flux-operator
+  avatar: https://avatars.githubusercontent.com/u/7545483?v=4
+  url: https://github.com/flux-framework/flux-operator
+  homepage: https://flux-framework.org/flux-operator
+  summary: "Deploy a Flux MiniCluster to Kubernetes with the operator"
+  license: MIT
+  createdAt: "2022-08-25T01:22:55Z"
+  description: |
+    The Flux Operator will allow you to define a spec for a persistent or one-off
+    "MiniCluster" - an entire setup of Flux Framework running in a set of networked
+    pods in Kubernetes.
+
+- name: flux-restful-api
+  flux_framework: false
+  github: flux-framework/flux-restful-api
+  avatar: https://avatars.githubusercontent.com/u/7545483?v=4
+  url: https://github.com/flux-framework/flux-restful-api
+  homepage: https://flux-framework.org/flux-restful-api
+  summary: "Flux RESTFul API provided by FAST API"
+  license: "LGPL-3.0"
+  createdAt: "2022-11-03T22:15:16Z"
+  description: |
+    The Flux RESTful API can be used to programmatically interact with Flux,
+    via REST. As an example, the Flux Operator can deploy the API to your cluster,
+    and users can submit jobs to Kubernetes programatically using it. It is not
+    limited to Kubernetes, however. The API can be provided alongside a Flux
+    installation to give a different kind of programmatic access to user scripts.
+    Additionally, it provides authentication and an OAauth2 style flow if desired.
+    
+- name: flux-python
+  flux_framework: false
+  github: flux-framework/flux-python
+  avatar: https://avatars.githubusercontent.com/u/7545483?v=4
+  url: https://github.com/flux-framework/flux-python
+  homepage: https://pypi.org/project/flux-python/
+  summary: "Python bindings generator for flux-core"
+  license: "LGPL-3.0"
+  createdAt: "2022-11-03T22:15:16Z"
+  description: |
+    Custom Python bindings to install alongside Flux. The version you install
+    should coincide with the version of Flux Core installed.
+
+- name: dyad
+  flux_framework: false
+  github: flux-framework/dyad
+  avatar: https://avatars.githubusercontent.com/u/7545483?v=4
+  url: https://github.com/flux-framework/dyad
+  homepage: https://github.com/flux-framework/dyad
+  summary: "DYAD: DYnamic and Asynchronous Data Streamliner"
+  license: "LGPL-3.0"
+  createdAt: "2019-10-03T23:02:42Z"
+  description: |
+     DYAD: DYnamic and Asynchronous Data Streamliner

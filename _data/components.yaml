@@ -1,0 +1,85 @@
+components:
+- name: module
+  label: module
+  type: module
+  url: https://flux-framework.readthedocs.io/en/latest/guides/admin-guide.html?h=modules#software-components
+  description: |
+    A module is a core service that is typically run directly by flux core or another
+    primarily component. Modules are grouped by service types.
+
+- name: plugin
+  label: plugin
+  type: plugin
+  url: https://flux-framework.readthedocs.io/en/latest/guides/admin-guide.html?h=modules#software-components
+  description: |
+    A plugin is an extension to a service module. Plugins are grouped by topics or functionality.
+
+- name: broker module
+  label: broker-module
+  type: module
+  url: https://flux-framework.readthedocs.io/en/latest/guides/admin-guide.html?h=modules#software-components
+  description: |
+    Each broker module runs in its own thread as part of the broker executable, 
+    communicating with other components using messages. Broker modules are dynamically 
+    loadable with the flux-module(1) command. Core services like the KVS, job manager, 
+    and scheduler are implemented using broker modules
+
+- name: jobtap plugin
+  label: jobtap-plugin
+  type: plugin
+  url: https://flux-framework.readthedocs.io/en/latest/guides/admin-guide.html?h=modules#software-components
+  description: |
+    The job manager orchestrates a job’s life cycle. Jobtap plugins extend the job manager,
+    arranging for callbacks at different points in the job life cycle. Jobtap plugins may be
+    dynamically loaded with the flux-jobtap(1) command. An example of a jobtap plugin
+    is the Flux accounting multi-factor priority plugin, which updates a job’s priority
+    value when it enters the PRIORITY state.
+
+- name: shell plugin
+  label: shell-plugin
+  type: plugin
+  url: https://flux-framework.readthedocs.io/en/latest/guides/admin-guide.html?h=modules#software-components
+  description: |
+    When a job is started, the flux-shell(1) is the process parent of job tasks on each node. 
+    Shell plugins extend the job environment and can be configured on a per-job basis using the 
+    --setopt option of flux-run(1) and related job submission commands. affinity, pmi, 
+    and pty are examples of Flux shell plugins.
+
+- name: connector plugin
+  label: connector-plugin
+  type: plugin
+  url: https://flux-framework.readthedocs.io/en/latest/guides/admin-guide.html?h=modules#software-components
+  description: |    
+    Flux commands open a connection to a particular Flux instance by specifying a URI. 
+    The scheme portion of the URI may refer to a native connection method such as local or ssh. 
+    Native connection methods are implemented as plugins called connectors. See flux_open(3).
+
+- name: uri resolver plugin
+  label: uri-resolver-plugin
+  type: plugin
+  url: https://flux-framework.readthedocs.io/en/latest/guides/admin-guide.html?h=modules#software-components
+  description: |    
+   Other URI schemes must be resolved to a native form before they can be used.
+   Resolvers for new schemes may be added as plugins. For example, the
+   lsf resolver plugin enables LSF users to connect to Flux instances running
+   as LSF jobs by specifying a lsf:JOBID URI. See flux-uri(1).
+   
+- name: validator plugin
+  label: validator-plugin
+  type: plugin
+  url: https://flux-framework.readthedocs.io/en/latest/guides/admin-guide.html?h=modules#software-components
+  description: |    
+    Jobs may be rejected at ingest if their jobspec fails one of a set of configured validator plugins.
+    The basic validator ensures the jobspec conforms to the jobspec specification. 
+    The feasibility plugin rejects job that the scheduler determines would be unable to run
+    given the instance’s resource set. The require-instance plugin rejects jobs that do not
+    run in a new Flux instance. See flux-config-ingest(5).
+
+- name: frobnicator plugin
+  label: frobnicator-plugin
+  type: plugin
+  url: https://flux-framework.readthedocs.io/en/latest/guides/admin-guide.html?h=modules#software-components
+  description: |    
+    The frobnicator allows a set of configured plugins to modify jobspec at submission time.
+    For example the defaults plugin sets configured default values for jobspec attributes
+    such as duration and queue. See flux-config-ingest(5).
