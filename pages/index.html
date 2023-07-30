@@ -1,0 +1,84 @@
+---
+layout: null
+permalink: /
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ site.tagline }}</title>
+    <meta name="author" content="{{ site.author }}">
+    <meta name="description" content="{{ site.description }}">
+    <meta name="keywords" content="{{ site.keywords }}">
+    {% include head.html %}
+</head>
+<body>
+{% include header.html %}
+    <main class="content">
+        <section class="projects">
+            <div class="container">
+
+ <div id="search">
+       <div class="input-group">
+         <div class="form-outline">
+           <input placeholder="search" type="search" id="searchbox" class="form-control" />
+         </div>
+       </div>
+     </div>
+
+                <h2 id="projects">Projects</h2>
+                <ul class="projects-list">
+                    {% for item in site.data.projects.components %}
+                        <li class="card">
+                            <a href="{{ item.url }}" target="_blank">
+                                <div class="img-wrapper">
+                                    <div style="background-color:#2da6ff" class="tooltip">{{ item.description }}</div>
+                                    <img src="{{ site.baseurl }}/assets/images/colors/project.png" alt="{{ item.name }}" />
+                                    <div class="centered">{{ item.name }} <br><span style="color:white">project</span></div>
+                                </div>
+                                <span class="h2">{{ item.name }}</span>
+                                <h3>{{ item.github }}</h3>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <h2 id="modules">Modules</h2>
+                <ul class="projects-list">
+                    {% for item in site.data.modules.components %}
+                        <li class="card">
+                            <a href="{{ item.url }}" target="_blank">
+                                <div class="img-wrapper">
+                                    <div style="background-color:#e34232" class="tooltip">{{ item.description }}</div>
+                                    <img src="{{ site.baseurl }}/assets/images/colors/module.png" alt="{{ item.name }}" />
+                                    <div class="centered">{{ item.name }} <br><span style="color:white">module</span></div>
+                                </div>
+                                <span class="h2">{{ item.name | truncate: 50 }}</span>
+                                <h3>{{ item.project }}</h3>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <h2 id="plugins">Plugins</h2>
+                <ul class="projects-list">
+                    {% for item in site.data.plugins.components %}
+                        <li class="card">
+                            <a href="{{ item.url }}" target="_blank">
+                                <div class="img-wrapper">
+                                    <div style="background-color:#e8b925" class="tooltip">{{ item.description }}</div>
+                                    <img src="{{ site.baseurl }}/assets/images/colors/plugin.png" alt="{{ item.name }}" />
+                                    <div class="centered">{{ item.name }} <br><span style="color:white">plugin</span></div>
+                                </div>
+                                <span class="h2">{{ item.name | truncate: 50 }}</span>
+                                <h3>{{ item.project }}</h3>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </main>
+    {% include footer.html %}
+    <script src="{{ "/assets/scripts/vendor/scrollreveal.min.js" | prepend: site.baseurl }}"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="{{ "/assets/scripts/home.js" | prepend: site.baseurl }}"></script>
+</body>
+</html>

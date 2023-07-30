@@ -1,0 +1,11 @@
+# User config
+
+author: "vsoch"
+tagline: "Flux Legos"
+description: "What are the components of Flux Framework?"
+keywords: "Flux Framework, modules, plugins, projects"
+repo: "https://github.com/converged-computing/flux-architecture"
+
+# Site config
+baseurl: "/flux-architecture"
+highlighter: rouge

@@ -1,0 +1,231 @@
+# https://github.com/flux-framework/flux-core/tree/master/src/modules/job-manager/plugins
+# https://github.com/flux-framework/flux-core/tree/master/src/connectors
+# https://github.com/flux-framework/flux-core/tree/master/src/bindings/python/flux/job/validator/plugins
+# https://github.com/flux-framework/flux-core/tree/master/src/bindings/python/flux/job/frobnicator/plugins
+components:
+
+- name: Flux accounting multi-factor priority plugin 
+  slug: mf-priority-plugin
+  url: https://github.com/flux-framework/flux-accounting/blob/master/src/plugins/mf_priority.cpp
+  project: flux-accounting
+  type: jobtap-plugin
+  distributed: 
+  description: |
+    Thsis plugin sets the priority on each job that enters the system based on multiple factors
+    including fair share values. The priority determines the order in which jobs are considered by the scheduler for resource 
+    allocation. In addition, the jobtap plugin holds or rejects job requests that exceed 
+    user/project specific limits or have exhausted their bank allocations.
+
+- name: Allocation bypass plugin
+  slug: alloc-bypass-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/alloc-bypass.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+   If attributes.system.R exists in jobspec, then bypass scheduler alloc protocol and use R directly (for instance owner use only)
+   (We need a better description here for a layperson)
+
+- name: Allocation check plugin
+  slug: alloc-check-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/alloc-check.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+    This plugin ensures that resources are never double booked. If they are found to be,
+    a fatal exception is raised on jobs that have resources already granted to others.
+    (Does this ever happen?)
+
+- name: Begin Time plugin
+  slug: begin-time-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/begin-time.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+    This plugin ensures that resources are never double booked. If they are found to be,
+    a fatal exception is raised on jobs that have resources already granted to others.
+    (Does this ever happen?)
+
+- name: Dependency After plugin
+  slug: dependency-after-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/dependency-after.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+    This plugin ensures we don't start a job until dependency jobs start,
+    complete, or fail (or any generic job with higher priority).
+
+- name: History plugin
+  slug: history-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/history.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+    This plugin tracks jobs in t_submit order per user (I'm not sure I know what this means)
+
+- name: Limit Duration plugin
+  slug: limit-duration-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/limit-duration.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+   This plugin validates job requests against configured duration limits. This means
+   that is uses the job.validate callback to accept or reject job requests.
+
+- name: Limit Job Size plugin
+  slug: limit-job-size-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/limit-job-size.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+    This plugin validates job requests against configured job size limits.
+
+- name: Perilog plugin
+  slug: perilog-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/perilog.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+    This plugin executes a job manager prolog/epilog for jobs. This usually happens on rank
+    0 before jobs have been allocated or freed resources.
+
+- name: Priority Default plugin
+  slug: priority-default-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/priority-default.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+    This is the builtin default priority plugin that sets priority to current urgency.
+
+- name: Submit Hold plugin
+  slug: submit-hold-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/submit-hold.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+    This plugin holds all submitted jobs.
+
+- name: Validate Duration plugin
+  slug: validate-duration-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/modules/job-manager/plugins/validate-duration.c
+  type: jobtap-plugin
+  project: flux-core
+  description: |
+    This plugin ensures that a job's duration doesn't exceed the current resource expiration
+    at the moment of submission.
+
+- name: Connector Local plugin
+  slug: connector-local-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/connectors/local/local.c
+  type: connector-plugin
+  project: flux-core
+  description: |
+    This plugin likely works with the connector-local module, but I don't understand how.
+
+- name: Connector Loop plugin
+  slug: connector-loop-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/connectors/loop/loop.c
+  type: connector-plugin
+  project: flux-core
+  description: |
+    This connector plugin is mainly for testing (I don't know the details).
+
+- name: Shared Memory Connector plugin
+  slug: connector-shmem-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/connectors/shmem/shmem.c
+  type: connector-plugin
+  project: flux-core
+  description: |
+    This connector plugin creates a 0MQ inproc socket that communicates with another
+    inproc socket in the same process (normally the flux broker).  Pairs of
+    inproc sockets must share a common 0MQ context.  This connector uses the
+    libczmq zsock class, which hides creation/sharing of the 0MQ context;
+    therefore, the other inproc socket should be created with zsock also.
+    (When is this used?)
+
+- name: SSH Connector plugin
+  slug: connector-ssh-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/connectors/ssh/ssh.c
+  type: connector-plugin
+  project: flux-core
+  description: |
+    This connector plugin enables connecting to a flux instance via ssh (this
+    is my guess anyway!)
+
+- name: Feasibility Plugin
+  slug: feasibility-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/bindings/python/flux/job/validator/plugins/feasibility.py
+  type: validator-plugin
+  project: flux-core
+  description: |
+    This plugin uses the sched.feasibility RPC to validate a job, allowing
+    jobs that are making infeasible or otherwise invalid requests to be rejected
+    by the scheduler before ingest, instead of when the scheduler attempts to allocate resources for them.
+    This plugin is implemented in Python.
+
+- name: JobSpec Validator Plugin
+  slug: jobspec-validator-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/bindings/python/flux/job/validator/plugins/jobspec.py
+  type: validator-plugin
+  project: flux-core
+  description: |
+    The JobSpec validator plugin uses flux.job.validate_jobspec to validate a 
+    submitted jobspec. This plugin is implemented in Python.
+
+- name: Require Instance Validator Plugin
+  slug: jobspec-validator-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/bindings/python/flux/job/validator/plugins/require-instance.py
+  type: validator-plugin
+  project: flux-core
+  description: |
+    This plugin requires that all jobs are new instances of flux, which needs to be 
+    done in the case of a batch job or using flux start or flux broker.
+    This plugin is implemented in Python.
+
+- name: Schema Validation Plugin
+  slug: schema-validation-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/bindings/python/flux/job/validator/plugins/schema.py
+  type: validator-plugin
+  project: flux-core
+  description: |
+    This plugin validates jobspec schemas using jsonschema.
+    This plugin is implemented in Python.
+
+- name: Frobnicator Constraints Plugin
+  slug: constraints-frobnicator-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/bindings/python/flux/job/frobnicator/plugins/constraints.py
+  type: frobnicator-plugin
+  project: flux-core
+  description: |
+    Apply constraints to incoming jobspec based on broker config.
+    This plugin is implemented in Python.
+
+- name: Frobnicator Defaults Plugin
+  slug: defaults-frobnicator-plugin
+  url: https://github.com/flux-framework/flux-core/blob/master/src/bindings/python/flux/job/frobnicator/plugins/defaults.py
+  type: frobnicator-plugin
+  project: flux-core
+  description: |
+    This plugin applies defaults to all incoming jobspec based on the broker config.
+
+- name: affinity
+  url: https://github.com/flux-framework/flux-core/blob/master/src/shell/affinity.c
+  type: shell-plugin
+  project:
+  description: |
+    This plugin appears to map tasks to cpu (or something like that).
+
+- name: pmi
+  url: https://github.com/flux-framework/flux-core/blob/master/src/shell/pmi/pmi.c
+  type: shell-plugin
+  project: flux-core
+  description: |
+    This plugin provides a PMI-1 service so that an MPI or Flux job can bootstrap.
+
+- name: pty
+  url: https://github.com/flux-framework/flux-core/blob/master/src/shell/pty.c
+  type: shell-plugin
+  project: flux-core
+  description: |    
+    The shell pty plugin parses any pty option, where a pty option is generally
+    a request for a pseudotty, a "device entry that acts like a terminal to the 
+    process reading and writing there, but is managed by something else."
