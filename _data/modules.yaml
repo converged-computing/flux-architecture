@@ -1,4 +1,5 @@
 # see https://github.com/flux-framework/flux-core/tree/master/src/modules
+# summary MUST be one line
 components:
 
 # https://flux-framework.readthedocs.io/projects/flux-rfc/en/latest/spec_11.html
@@ -9,6 +10,7 @@ components:
   project: flux-core
   type: broker-module
   distributed: true
+  summary: The Flux Key Value Store (KVS) implements hierarchical key namespaces layered atop the content storage service.
   description: |
     The Flux Key Value Store (KVS) implements hierarchical key namespaces layered atop the content storage service. 
     Namespaces are organized as hash trees of content-addressed tree objects and values. Generally speaking,
@@ -22,6 +24,7 @@ components:
   project: flux-core
   type: broker-module
   distributed: true
+  summary: The Resource module is backed by a resource model that provides a conceptual model for resources described and managed by Flux.
   description: |
     The Resource module is backed by a resource model that provides a conceptual model for resources
     described and managed by Flux. (But what does it do?)
@@ -33,6 +36,7 @@ components:
   project: flux-core
   type: broker-module
   distributed: true
+  summary: A distributed barrier service, which servers as some kind of block until a set of conditions (resources?) are achieved.
   description: |
     A distributed barrier service, which servers as some kind of block until
     a set of conditions (resources?) are achieved.
@@ -43,6 +47,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/content-files/content-files.c 
   project: flux-core
   type: broker-module
+  summary: Content addressable storage with files back end.
   distributed: false
   description: |
     Content addressable storage with files back end. There are four operations provided
@@ -55,6 +60,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/sched-simple/sched.c
   project: flux-core
   type: broker-module
+  summary: A simple module variant of the scheduler, ideal for testing cases (more detail needed here).
   distributed: false
   description: |
     A simple module variant of the scheduler, ideal for testing cases (more detail needed here).
@@ -78,6 +84,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/sdbus/sdbus.c
   project: flux-core
   type: broker-module
+  summary: This appears to be a service that responds to systemd IPC calls?
   distributed: false
   description: |
     This appears to be a service that responds to systemd IPC calls?
@@ -90,6 +97,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/sdexec/sdexec.c
   project: flux-core
   type: broker-module
+  summary: This service helps to run subprocesses under systemd as transient units.
   distributed: false
   description: |
     This service helps to run subprocesses under systemd as transient units.
@@ -102,6 +110,7 @@ components:
   project: flux-core
   type: broker-module
   # Because it's on s3?
+  summary: Akin to content files, this is content addressable storage with an S3 back end.
   distributed: true
   description: |
     Akin to content files, this is content addressable storage with an S3 back end. 
@@ -114,6 +123,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/content-sqlite/content-sqlite.c
   project: flux-core
   type: broker-module
+  summary: Akin to content files, this is content addressable storage with an sqlite backend
   distributed: false
   description: |
     Akin to content files, this is content addressable storage with an sqlite backend
@@ -127,6 +137,7 @@ components:
   project: flux-core
   type: broker-module
   distributed: true
+  summary: The Flux cron service offers an interface for executing commands on triggers such as a time interval or Flux events.
   description: |
     The Flux cron service offers an interface for executing commands on triggers such as a time interval
     or Flux events. The service is implemented as a Flux extension module which, when loaded, manages 
@@ -141,6 +152,7 @@ components:
   project: flux-core
   type: broker-module
   distributed: true
+  summary: A module that provide a consistent heartbeat (event stream?) that can be subscribed to or used by other things to provide that beat? (please halp!)   
   description: |
     A module that provide a consistent heartbeat (event stream?) that can be subscribed to or used
     by other things to provide that beat? (please halp!)
@@ -151,6 +163,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/job-archive/job-archive.c
   project: flux-core
   type: broker-module
+  summary: The job-archive service periodically archives job data in a sqlite database for use by flux-accounting. 
   distributed: true
   description: |
     The job-archive service periodically archives job data in a sqlite database for use by flux-accounting.
@@ -163,6 +176,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/job-exec/job-exec.c
   project: flux-core
   type: broker-module
+  summary: Prototype job exec service that implements an exec interface for jobs
   distributed: true
   description: |
     Prototype job exec service that implements an exec interface for jobs
@@ -175,6 +189,7 @@ components:
   project: flux-core
   type: broker-module
   distributed: true
+  summary: A lookup service to get information about a job from the key value store. 
   description: |
     A lookup service to get information about a job from the key value store. 
 
@@ -184,6 +199,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/job-ingest/job-ingest.c
   project: flux-core
   type: broker-module
+  summary: I eat jobs.
   distributed: false
   description: |
     The job-ingest service takes in signed jobspec submitted through flux_job_submit(),
@@ -198,6 +214,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/job-list/job-list.c
   project: flux-core
   type: broker-module
+  summary: The job-list service lists jobs for a local instance (I couldn't find description for this one).
   distributed: false
   description: |
     The job-list service lists jobs for a local instance (I couldn't find description for this one).
@@ -208,6 +225,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/job-list/job-list.c
   project: flux-core
   type: broker-module
+  summary: The job-list service lists jobs for a local instance (I couldn't find description for this one).
   distributed: false
   description: |
     The job-list service lists jobs for a local instance (I couldn't find description for this one).
@@ -222,6 +240,7 @@ components:
   rawurl: https://raw.githubusercontent.com/flux-framework/flux-core/master/src/modules/job-manager/job-manager.c
   project: flux-core
   type: broker-module
+  summary: I manage jobs.
   distributed: false
   description: |
     The job-manager service is the high level coordinator of jobs, receiving a notification from the job-injest
@@ -237,6 +256,7 @@ components:
   project: flux-core
   type: broker-module
   distributed: false
+  summary: KVS watch is a service that enables a Flux Event Log to be used for synchronization
   description: |
     KVS watch is a service that enables a Flux Event Log to be used for synchronization
     (more detail here, what does that mean?)

@@ -1,0 +1,207 @@
+---
+title: Projects
+permalink: circles/
+layout: default
+---
+
+<style>
+.label,
+.node--root,
+.node--leaf {
+  pointer-events: none;
+}
+
+circle.child {
+  pointer-events: none;
+}
+
+.label {
+  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-anchor: middle;
+  fill: white;
+  display: block;
+}
+
+.description {
+  display:block;
+}
+
+.url {
+  display:block;
+}
+
+circle {
+  opacity: 90%;
+}
+
+.node {
+  cursor: pointer;
+}
+
+.node:hover {
+  stroke: #71797E;
+  stroke-width: 1.5px;
+}
+</style>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<section class="projects">
+  <div class="container">
+  <h2>Flux Projects</h2>
+  <h3 style="width:200px;background-color:{{ site.data.colors.project }}">project</h3>
+  <h3 style="width:200px;background-color:{{ site.data.colors.module }}">module</h3>
+  <h3 style="width:200px;background-color:{{ site.data.colors.plugin }}">plugin</h3>
+  <svg width="1000" height="1000" id="circlepack"></svg>
+  </div>
+  </section>
+<script>
+var svg = d3.select("#circlepack");
+var diameter = +svg.attr("width");
+var g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+var pack = d3.pack()
+    .size([diameter,diameter])
+
+var tooltip = d3.select("body")
+	.append("div")
+	.style("position", "absolute")
+	.style("z-index", "10")
+	.style("visibility", "hidden")
+
+// Original example
+// https://raw.githubusercontent.com/Lea1216/zoomableCircles/main/circles.json
+//d3.json("https://raw.githubusercontent.com/Lea1216/zoomableCircles/main/circles.json", function(error,root) {
+d3.json("{{ site.baseurl }}/api/projects.json", function(error, root) {
+  if (error) throw error;
+
+  // Assemble string (csv) of children for each project
+  // Kind of Janky way but it works!
+  children = Object()
+  {% assign projects = site.data.projects.components %}
+  {% for project in projects %}children["{{ project.name }}"] = []; {% endfor %}
+  {% assign modules = site.data.modules.components %}
+  {% for module in modules %}
+  children["{{ module.project }}"].push({"name": "{{ module.name }}", "size": 1, "color":"{{site.data.colors.module}}","description": "module","url":"{{ module.url }}","card":"", "component": "module"})  
+  {% endfor %}
+  {% assign plugins = site.data.plugins.components %}
+  {% for module in plugins %}
+  children["{{ module.project }}"].push({"name": "{{ module.name }}", "size": 1, "color":"{{site.data.colors.plugin}}","description": "plugin","url":"{{ module.url }}", "component": "plugin", "card":""})  
+  {% endfor %}
+
+  console.log('Here are the children')
+  console.log(children)
+
+  // Add the children! Save the children! Just kidding
+  // Also don't include projects without children
+  updated_children = []
+  no_children = []
+  root.children.forEach(item => {
+      if (children[item.name].length == 0) {
+          no_children.push(item)
+      } else {
+          item.children = children[item.name]
+          updated_children.push(item)      
+      }
+  })
+  root.children = updated_children  
+  console.log(root)
+  
+  root = d3.hierarchy(root)
+    .sum(function(d) {return d.size})
+    .sort(function(a, b) { return b.value - a.value; });
+
+  var focus = root,
+      nodes = pack(root).descendants(),
+      view;
+
+  var circle = g.selectAll("circle")
+      .data(nodes)
+      .enter()
+      .append("circle")
+          .attr("class", "circle")
+          .attr("class", function(d){ return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
+          .style("font-size", "20px")
+          .style("fill", function(d) { return d.data.color})
+          .on("click", function(d) { 
+
+             // Enables links when elements have no childern
+             console.log(d.parent)
+             console.log(d.children)
+             if(typeof d.children === 'undefined'){
+                 console.log('no children')
+                 g.selectAll("text").style("pointer-events","all")
+             } else {
+                 console.log('children')
+                 g.selectAll("text").style("pointer-events","none")
+             }          
+            if (focus !== d) zoom(d), d3.event.stopPropagation(); 
+          })
+
+      //.on("mouseover", function(d){
+      //   if (d.data.component == "project") {
+      //     return tooltip.text(d.data.name).style("visibility", "visible")
+      //   } 
+      //   return tooltip.text(d.data.name).style("visibility", "visible");})
+      //.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");}) 
+      //.on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+
+  var headline = g.selectAll("text")
+      .data(nodes)
+      .enter()
+      .append("text")
+      .attr("class","label")
+      .style("font-size", function(d) { return d.parent === root ? "20px" : "12px"; })       
+      .style("display", function(d) { return d.parent === root ? "inline" : "none"; })       
+      .text(function(d) { return d.data.name; })
+      .on("click", function(d) {window.open(d.data.url, "_blank")})
+
+
+// This is too much text - we should add as a popup
+//var description = g.selectAll("text")
+//                         .append("tspan")
+//                       .attr("class","description")
+//                     .text(function (d) {return d.data.description;});
+
+//    var url = g.selectAll("text")
+//                .append("tspan")
+//                .attr("class","url")
+//                .text(function (d) {return d.children?  " ": " [ref]";})
+//                .on("click", function(d) {window.open(d.data.url,"_blank")})
+
+  var node = g.selectAll("circle,text")
+  console.log(node)
+
+  svg.on("click", function() { zoom(root); });
+
+  zoomTo([root.x, root.y, root.r * 2 ]);
+
+  function zoom (d) {
+    console.log('ZOOM')
+    console.log(d)
+    var focus0 = focus; focus = d;
+
+    var transition = d3.transition()
+        .duration(600)
+        .tween("zoom", function(d) {
+         
+    var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 ]);
+          return function(t) { zoomTo(i(t)); };
+          });
+
+          transition.selectAll("text")
+              .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
+              .style("fill-opacity", function(d) { return d.parent === focus ? 1 : 0; })
+              .on("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
+              .on("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
+        }
+
+        function zoomTo(v) {
+          var k = diameter / v[2]; view = v;
+          node.attr("transform", function(d) { return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")"; });
+          circle.attr("r", function(d) { return d.r * k; });
+        }
+        });
+</script>
+</body>
+</html>
+
+

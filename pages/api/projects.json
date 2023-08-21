@@ -1,0 +1,16 @@
+---
+layout: none
+permalink: /api/projects.json
+excluded_in_search: true
+---
+{% assign projects = site.data.projects.components %}
+{"name": "Flux Framework","color":"#FFFFFF", "card": "{{ site.baseurl }}/assets/images/colors/project.png",
+  "children": [{% for project in projects %}{
+     "name": "{{ project.name }}",
+     "component": "project",
+     "description": "{{ project.summary }}",
+     "color":"{{ site.data.colors.project }}",
+     "card": "{{ site.baseurl }}/assets/images/colors/project.png",
+     "children": []
+ }{% if forloop.last %}{% else %},{% endif %}
+{% endfor %}]}

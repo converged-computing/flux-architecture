@@ -1,19 +1,7 @@
 ---
-layout: null
+layout: default
 permalink: /
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>{{ site.tagline }}</title>
-    <meta name="author" content="{{ site.author }}">
-    <meta name="description" content="{{ site.description }}">
-    <meta name="keywords" content="{{ site.keywords }}">
-    {% include head.html %}
-</head>
-<body>
-{% include header.html %}
-    <main class="content">
         <section class="projects">
             <div class="container">
             <div id="search">
@@ -89,10 +77,3 @@ permalink: /
                 </ul>
             </div>
         </section>
-    </main>
-    {% include footer.html %}
-    <script src="{{ "/assets/scripts/vendor/scrollreveal.min.js" | prepend: site.baseurl }}"></script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="{{ "/assets/scripts/home.js" | prepend: site.baseurl }}"></script>
-</body>
-</html>

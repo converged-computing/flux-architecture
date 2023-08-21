@@ -9,8 +9,9 @@ components:
   summary: "core services for the Flux resource management framework"
   license: LGPL-3.0
   createdAt: "2014-09-26T22:27:19Z"
-  description: |
-    Flux core includes all the main components for Flux Framework.
+  description: Flux core includes all the main components for Flux Framework.
+  color: "#3f88c5ff"
+
 - name: flux-sched
   slug: flux-sched
   flux_framework: true
@@ -21,8 +22,9 @@ components:
   summary: "Fluxion Graph-based Scheduler"
   license: LGPL-3.0
   createdAt: "2014-10-23T23:09:17Z"
-  description: |
-    The Fluxion scheduler
+  description: The Fluxion scheduler
+  color: "#d00000ff"
+
 - name: flux-accounting
   slug: flux-accounting
   flux_framework: true
@@ -33,6 +35,7 @@ components:
   summary: "bank/accounting interface for the Flux resource manager"
   license: LGPL-3.0
   createdAt: "2020-03-06T16:58:23Z"
+  color: "#ffba08ff"
   description: |
     By default, a Flux system instance treats users equally and schedules work based on demand,
     without consideration of a user’s history of resource consumption, or what share of available
@@ -50,8 +53,8 @@ components:
   summary: "flux shell plugin to bootstrap openmpi v5+"
   license: LGPL-3.0
   createdAt: "2021-09-15T14:55:22Z"
-  description: |
-    Flux PMIX description
+  description: Flux PMIX description
+  color: "#032b43ff"
 
 - name: flux-security
   slug: flux-security
@@ -63,8 +66,8 @@ components:
   summary: "Independent project for Flux security code and APIs."
   license: LGPL-3.0
   createdAt: "2017-10-02T16:38:49Z"
-  description: |
-    Flux PMIX description
+  color: "#136f63ff"
+  description: Flux PMIX description
 
 - name: flux-operator
   slug: flux-operator
@@ -90,6 +93,7 @@ components:
   summary: "Deploy a Flux MiniCluster to Kubernetes with the operator"
   license: MIT
   createdAt: "2022-08-25T01:22:55Z"
+  color: "#6761a8"
   description: |
     The Flux Operator will allow you to define a spec for a persistent or one-off
     "MiniCluster" - an entire setup of Flux Framework running in a set of networked
